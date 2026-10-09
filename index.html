@@ -1286,17 +1286,34 @@ body {
    RESPONSIVE
 ========================================================= */
 
+
+/* RESPONSIVE: conservar el diseño original */
 @media (max-width: 500px) {
+    html,
+    body {
+        width: 100%;
+        min-height: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        display: block;
+    }
 
     .poster {
-        width: 100vw;
+         position: relative;
+        width: 470px;
+        min-height: 100vh;
+        margin: 0 auto;
+        transform-origin: top left;
+        filter: blur(0.7px);
     }
 
     .top {
-        width: 100vw;
+        width: 470px;
     }
-
 }
+
 
 </style>
 
@@ -1319,10 +1336,7 @@ body {
 
     <div class="left-image">
 
-        <img
-           <img src="./image/1.png" alt="Paisaje">
-            alt="Paisaje"
-        >
+       <img src="./image/1.png" alt="Paisaje">
 
         <div class="marker"></div>
 
@@ -1361,8 +1375,6 @@ body {
 
         <img
             <img src="./image/5.jpg" alt="Paisaje">
-            alt="Paisaje"
-        >
 
         <div class="marker"></div>
 
@@ -1379,8 +1391,7 @@ body {
 
         <img
             <img src="./image/3.jpg" alt="Paisaje">
-            alt="Paisaje"
-        >
+    
 
         <div class="marker"></div>
 
@@ -1436,12 +1447,7 @@ body {
 
         <img
             <img src="./image/6.jpg" alt="Paisaje">
-            alt="Paisaje"
-        >
 
-        
-
-        
 
     </div>
 
@@ -1452,8 +1458,6 @@ body {
 
         <img
             <img src="./image/13.jpg" alt="Paisaje">
-            alt="Paisaje"
-        >
 
         <div class="marker"></div>
 
@@ -1557,8 +1561,7 @@ body {
 
         <img
             <img src="./image/12.jpg" alt="Paisaje">
-            alt="Close up de labios"
-        >
+  
 
     </div>
 
@@ -1724,6 +1727,27 @@ body {
 
 
 </main>
+
+<script>
+(function () {
+    const poster = document.querySelector('.poster');
+
+    function adjustPoster() {
+        const scale = Math.min(1, window.innerWidth / 470);
+
+        poster.style.transform = `scale(${scale})`;
+        poster.style.transformOrigin = 'top left';
+
+        poster.style.marginBottom =
+            `${poster.offsetHeight * (scale - 1)}px`;
+
+        poster.style.marginLeft = '0';
+    }
+
+    window.addEventListener('resize', adjustPoster);
+    adjustPoster();
+})();
+</script>
 
 </body>
 
