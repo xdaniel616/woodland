@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Commuxnication — Artist sTalk</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    background: #ffffff;
+    color: #080808;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   POSTER
+========================================================= */
+
+.poster {
+    position: relative;
+
+    width: 470px;
+    min-height: 100vh;
+
+    background: #ffffff;
+
+    overflow: hidden;
+
+    filter: blur(0.7px);
+}
+
+
+/* =========================================================
+   TOP
+========================================================= */
+
+.top {
+    position: relative;
+
+    width: 470px;
+    height: 240px;
+
+    background: #ffffff;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   LEFT IMAGE
+========================================================= */
+
+.left-image {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 40px;
+    height: 240px;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border-right: 1px solid #111111;
+
+    z-index: 20;
+}
+
+.left-image img {
+    display: block;
+
+    width: 40px;
+    height: 240px;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   VERTICAL TEXT COLUMNS
+========================================================= */
+
+.vertical-column {
+    position: absolute;
+
+    top: 0;
+
+    width: 40px;
+    height: 240px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+
+    border-right: 1px solid #111111;
+
+    overflow: hidden;
+
+    z-index: 25;
+}
+
+.vertical-column.communication {
+    left: 40px;
+}
+
+.vertical-column.special {
+    left: 80px;
+}
+
+.vertical-text {
+    display: block;
+
+    color: #111111;
+
+    font-family:
+        "Arial Narrow",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+    font-size: 50px;
+
+    font-weight: 400;
+
+    line-height: 1;
+
+    letter-spacing: -1.5px;
+
+    white-space: nowrap;
+
+    text-align: center;
+
+    transform:
+        rotate(92deg)
+        scaleX(0.75);
+
+    transform-origin: center;
+}
+
+
+/* =========================================================
+   PHOTOS
+========================================================= */
+
+.photo {
+    position: absolute;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    z-index: 10;
+}
+
+.photo img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   IMAGE 1
+========================================================= */
+
+.image-1 {
+    left: 120px;
+    top: 0;
+
+    width: 220px;
+    height: 70px;
+}
+
+.image-1 img {
+    width: 220px;
+    height: 70px;
+}
+
+
+/* =========================================================
+   IMAGE 6
+========================================================= */
+
+.image-6 {
+    left: 340px;
+    top: 0;
+
+    width: 130px;
+    height: 70px;
+}
+
+.image-6 img {
+    width: 130px;
+    height: 70px;
+}
+
+
+/* =========================================================
+   IMAGE 4
+========================================================= */
+
+.image-4 {
+    left: 120px;
+    top: 170px;
+
+    width: 120px;
+    height: 70px;
+}
+
+.image-4 img {
+    width: 130px;
+    height: 70px;
+}
+
+
+/* =========================================================
+   IMAGE 5
+========================================================= */
+
+.image-5 {
+    left: 250px;
+    top: 170px;
+
+    width: 107px;
+    height: 70px;
+}
+
+.image-5 img {
+    width: 107px;
+    height: 70px;
+}
+
+
+/* =========================================================
+   MARKERS
+========================================================= */
+
+.marker {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 28px;
+    height: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #000000;
+
+    z-index: 100;
+}
+
+.marker-number {
+    position: absolute;
+
+    top: 2px;
+    left: 2px;
+
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+
+    border: 1px solid #000000;
+
+    border-radius: 50%;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    line-height: 1;
+
+    z-index: 101;
+}
+
+
+/* =========================================================
+   COMMUNICATION GRID
+========================================================= */
+
+.communication-grid {
+    position: absolute;
+
+    left: 120px;
+    top: 70px;
+
+    width: 350px;
+    height: 100px;
+
+    border: 1px solid #111111;
+
+    z-index: 30;
+
+    pointer-events: none;
+}
+
+.communication-grid .horizontal-line-1 {
+    position: absolute;
+
+    left: 0;
+    top: 34px;
+
+    width: 350px;
+    height: 1px;
+
+    background: #111111;
+}
+
+.communication-grid .horizontal-line-2 {
+    position: absolute;
+
+    left: 0;
+    top: 69px;
+
+    width: 237px;
+    height: 1px;
+
+    background: #111111;
+}
+
+
+/* =========================================================
+   COMMUNICATION TEXT
+========================================================= */
+
+.communication-text {
+    position: absolute;
+
+    left: 120px;
+    top: 70px;
+
+    width: 350px;
+    height: 100px;
+
+    z-index: 35;
+
+    pointer-events: none;
+}
+
+.communication-title {
+    position: absolute;
+
+    left: 8px;
+    top: 7px;
+
+    width: 334px;
+    height: 27px;
+
+    font-size: 28px;
+
+    line-height: 1;
+
+    letter-spacing: -1.3px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+}
+
+.communication-title strong {
+    font-weight: 400;
+}
+
+.communication-sub {
+    position: absolute;
+
+    left: 8px;
+    top: 39px;
+
+    width: 330px;
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    font-size: 26px;
+
+    line-height: 1.05;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+}
+
+.communication-small {
+    position: absolute;
+
+    left: 8px;
+    top: 73px;
+
+    width: 330px;
+    height: 23px;
+
+    display: flex;
+
+    align-items: center;
+
+    font-size: 24px;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   BOTTOM GRID
+========================================================= */
+
+.bottom-grid {
+    position: absolute;
+
+    left: 120px;
+    top: 170px;
+
+    width: 350px;
+    height: 70px;
+
+    border: 1px solid #111111;
+
+    z-index: 30;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CUADRO DE TEXTO
+========================================================= */
+
+.bottom-writing {
+    position: absolute;
+
+    left: 356px;
+    top: 140px;
+
+    width: 114px;
+    height: 100px;
+
+    background: #ffffff;
+
+    border: 1px solid #111111;
+
+    z-index: 80;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+.bottom-writing-text {
+    width: 100%;
+    height: 100%;
+
+    padding: 6px 5px;
+
+    color: #111111;
+
+    background: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    font-size: 11px;
+
+    line-height: 1.1;
+
+    font-weight: 400;
+
+    white-space: normal;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   RUSSIAN / ARTIST TALK
+========================================================= */
+
+.russian {
+    position: relative;
+
+    height: 432px;
+
+    overflow: hidden;
+
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   FONDO ROSADO MUY SUTIL
+========================================================= */
+
+.russian::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            ellipse at 62% 18%,
+            rgba(175, 100, 100, .25),
+            rgba(255, 255, 255, .08) 35%,
+            transparent 62%
+        );
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   INFO SUPERIOR
+========================================================= */
+
+.info {
+    position: absolute;
+
+    left: 8px;
+    top: 4px;
+
+    width: 365px;
+
+    font-size: 10px;
+
+    line-height: 1.03;
+
+    z-index: 15;
+}
+
+.info strong {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   18:00
+========================================================= */
+
+.artist-time {
+    position: absolute;
+
+    top: 90px;
+    left: 6px;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 59px;
+
+    font-style: italic;
+
+    font-weight: 700;
+
+    line-height: .8;
+
+    letter-spacing: -5px;
+
+    white-space: nowrap;
+
+    z-index: 12;
+}
+
+
+/* =========================================================
+   ARTIST TALK
+========================================================= */
+
+.artist {
+    position: absolute;
+
+    top: 68px;
+    left: 153px;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size: 45px;
+
+    font-style: italic;
+
+    font-weight: 400;
+
+    line-height: .85;
+
+    letter-spacing: -3.5px;
+
+    white-space: nowrap;
+
+    z-index: 18;
+}
+
+
+/* =========================================================
+   FOTO REAL DE LA BOCA
+========================================================= */
+
+.big-mouth {
+    position: absolute;
+
+    top: 2px;
+    left: 225px;
+
+    width: 245px;
+    height: 196px;
+
+    overflow: hidden;
+
+    opacity: .62;
+
+    
+
+    z-index: 5;
+
+    border-radius: 0;
+}
+
+.big-mouth img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center 50%;
+
+    filter:
+        saturate(.82)
+        contrast(.88)
+        brightness(1.08);
+}
+
+
+/* =========================================================
+   2010 LATERAL
+========================================================= */
+
+.side-type {
+    position: absolute;
+
+    left: -8px;
+    top: 150px;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 29px;
+
+    line-height: 1;
+
+    writing-mode: vertical-rl;
+
+    transform: rotate(180deg);
+
+    letter-spacing: -3px;
+
+    opacity: .9;
+
+    z-index: 12;
+}
+
+
+/* =========================================================
+   SPECIAL QUEST LATERAL
+========================================================= */
+
+.side-type-right {
+    position: absolute;
+
+    right: -4px;
+    top: 305px;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 20px;
+
+    line-height: 1;
+
+    writing-mode: vertical-rl;
+
+    letter-spacing: -2px;
+
+    z-index: 20;
+}
+
+
+/* =========================================================
+   TEXTO RUSO PRINCIPAL
+========================================================= */
+
+.russian-main {
+    position: absolute;
+
+    left: 20px;
+    top: 149px;
+
+    width: 405px;
+
+    font-family:
+        "Arial Narrow",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+    font-size: 62px;
+
+    font-weight: 300;
+
+    font-style: italic;
+
+    line-height: .91;
+
+    letter-spacing: 1px;
+
+    transform: skewX(-19deg) scaleX(1.05);
+    transform-origin: left center;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   CADA LÍNEA CONTROLADA INDIVIDUALMENTE
+========================================================= */
+
+.russian-main div {
+    height: 48px;
+
+    line-height: .91;
+
+    white-space: nowrap;
+
+    transform-origin: left center;
+}
+
+.russian-main div:nth-child(1) {
+    transform: scaleX(.93);
+
+    margin-left: 0;
+}
+
+.russian-main div:nth-child(2) {
+    transform: scaleX(.96);
+
+    margin-left: 0;
+}
+
+.russian-main div:nth-child(3) {
+    transform: scaleX(.94);
+
+    margin-left: 0;
+}
+
+.russian-main div:nth-child(4) {
+    transform: scaleX(.96);
+
+    margin-left: 0;
+}
+
+
+/* =========================================================
+   STICKER
+========================================================= */
+
+.sticker {
+    position: absolute;
+
+    right: 2px;
+    bottom: 45px;
+
+    width: 88px;
+    height: 31px;
+
+    padding: 2px;
+
+  
+
+    border-radius: 4px;
+
+    transform: rotate(deg);
+
+    font-size: 9px;
+
+    line-height: 1;
+
+    z-index: 20;
+}
+
+.sticker strong {
+    display: block;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   PARTY
+========================================================= */
+
+.party {
+    position: absolute;
+
+    bottom: -2px;
+    left: 82px;
+
+    height: 67px;
+
+    white-space: nowrap;
+
+    z-index: 20;
+}
+
+.party-time {
+    display: inline-block;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 58px;
+
+    font-style: italic;
+
+    font-weight: 700;
+
+    line-height: .8;
+
+    letter-spacing: -5px;
+
+    vertical-align: bottom;
+}
+
+.party-word {
+    display: inline-block;
+
+    font-family:
+        "Times New Roman",
+        Times,
+        serif;
+
+    font-size: 54px;
+
+    font-weight: 400;
+
+    line-height: .8;
+
+    letter-spacing: -4px;
+
+    margin-left: 7px;
+
+    vertical-align: bottom;
+}
+
+
+/* =========================================================
+   BOTTOM ART
+   — MISMA BASE ORIGINAL, PERO MÁS PARECIDA
+     A LA REFERENCIA
+========================================================= */
+
+.bottom-art {
+    position: relative;
+
+    height: 180px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            rgba(255, 255, 255, .32),
+            rgba(255, 255, 255, .32)
+        ),
+        repeating-linear-gradient(
+            0deg,
+            #d5d5d5 0px,
+            #ededed 2px,
+            #fafafa 4px,
+            #dcdcdc 5px,
+            #f5f5f5 8px
+        );
+
+    filter: grayscale(1);
+
+    border-top: 1px solid #777;
+}
+
+
+/* =========================================================
+   DIBUJO ABSTRACTO DE FONDO
+========================================================= */
+
+.bottom-art::before {
+    content: "";
+
+    position: absolute;
+
+    left: 20px;
+    top: 5px;
+
+    width: 420px;
+    height: 125px;
+
+    background:
+
+        /* líneas curvas */
+        radial-gradient(
+            ellipse at 28% 48%,
+            transparent 0 34%,
+            rgba(30,30,30,.65) 35%,
+            transparent 36%
+        ),
+
+        radial-gradient(
+            ellipse at 55% 55%,
+            transparent 0 37%,
+            rgba(30,30,30,.48) 38%,
+            transparent 39%
+        ),
+
+        /* diagonales */
+        linear-gradient(
+            115deg,
+            transparent 0 32%,
+            rgba(20,20,20,.65) 32.3% 32.8%,
+            transparent 33.2% 48%,
+            rgba(20,20,20,.5) 48.3% 48.8%,
+            transparent 49%
+        ),
+
+        linear-gradient(
+            72deg,
+            transparent 0 44%,
+            rgba(30,30,30,.55) 44.3% 44.8%,
+            transparent 45%
+        );
+
+    transform:
+        rotate(-5deg)
+        skewX(-5deg);
+
+    opacity: .75;
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   ELEMENTOS DECORATIVOS RUSOS
+========================================================= */
+
+.bottom-art .cyrillic-1,
+.bottom-art .cyrillic-2,
+.bottom-art .cyrillic-3,
+.bottom-art .cyrillic-4 {
+    position: absolute;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    color: #111111;
+
+    white-space: nowrap;
+
+    z-index: 4;
+}
+
+
+/* pequeño texto superior */
+
+.bottom-art .cyrillic-1 {
+    left: 8px;
+    top: 5px;
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+
+    transform: rotate(-2deg);
+
+    opacity: .85;
+}
+
+
+/* texto central */
+
+.bottom-art .cyrillic-2 {
+    left: 115px;
+    top: 17px;
+
+    font-family:
+        "Arial Narrow",
+        Arial,
+        sans-serif;
+
+    font-size: 20px;
+
+    font-style: italic;
+
+    letter-spacing: -1px;
+
+    transform: rotate(-4deg) skewX(-10deg);
+
+    opacity: .72;
+}
+
+
+/* texto derecho */
+
+.bottom-art .cyrillic-3 {
+    right: 12px;
+    top: 9px;
+
+    font-size: 15px;
+
+    letter-spacing: -1px;
+
+    transform: rotate(3deg);
+
+    opacity: .7;
+}
+
+
+/* texto vertical */
+
+.bottom-art .cyrillic-4 {
+    right: 0;
+    top: 55px;
+
+    font-family:
+        "Arial Narrow",
+        Arial,
+        sans-serif;
+
+    font-size: 12px;
+
+    writing-mode: vertical-rl;
+
+    letter-spacing: 1px;
+
+    opacity: .8;
+}
+
+
+/* =========================================================
+   LETRAS GRANDES DE CONTORNO
+========================================================= */
+
+.bottom-art .giant-letter {
+    position: absolute;
+
+    font-family:
+        "Times New Roman",
+        Georgia,
+        serif;
+
+    font-size: 118px;
+
+    font-weight: 400;
+
+    line-height: .72;
+
+    color: transparent;
+
+    -webkit-text-stroke: 1.1px #111111;
+
+    letter-spacing: -12px;
+
+    z-index: 6;
+
+    opacity: .96;
+}
+
+
+/* primera letra */
+
+.bottom-art .letter-p {
+    left: -7px;
+    bottom: -8px;
+
+    transform:
+        scaleX(.88)
+        rotate(-1deg);
+}
+
+
+/* segunda */
+
+.bottom-art .letter-r {
+    left: 77px;
+    bottom: -8px;
+
+    transform:
+        scaleX(.88)
+        rotate(1deg);
+}
+
+
+/* tercera */
+
+.bottom-art .letter-o {
+    left: 157px;
+    bottom: -10px;
+
+    transform:
+        scaleX(.91)
+        rotate(-1deg);
+}
+
+
+/* cuarta */
+
+.bottom-art .letter-b {
+    left: 242px;
+    bottom: -8px;
+
+    transform:
+        scaleX(.86)
+        rotate(1deg);
+}
+
+
+/* quinta */
+
+.bottom-art .letter-u {
+    left: 325px;
+    bottom: -8px;
+
+    transform:
+        scaleX(.9)
+        rotate(-1deg);
+}
+
+
+/* =========================================================
+   LÍNEAS MANUALES SOBRE LAS LETRAS
+========================================================= */
+
+.bottom-art .sketch-line-1,
+.bottom-art .sketch-line-2,
+.bottom-art .sketch-line-3 {
+    position: absolute;
+
+    height: 1px;
+
+    background: #111111;
+
+    z-index: 8;
+
+    opacity: .7;
+}
+
+.bottom-art .sketch-line-1 {
+    left: 42px;
+    top: 28px;
+
+    width: 180px;
+
+    transform: rotate(-11deg);
+}
+
+.bottom-art .sketch-line-2 {
+    left: 255px;
+    top: 38px;
+
+    width: 150px;
+
+    transform: rotate(7deg);
+}
+
+.bottom-art .sketch-line-3 {
+    left: 70px;
+    top: 71px;
+
+    width: 280px;
+
+    transform: rotate(-3deg);
+}
+
+
+/* =========================================================
+   PEQUEÑOS SÍMBOLOS
+========================================================= */
+
+.bottom-art .symbol {
+    position: absolute;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 18px;
+
+    color: #111111;
+
+    z-index: 9;
+
+    opacity: .75;
+}
+
+.bottom-art .symbol-a {
+    left: 30px;
+    top: 36px;
+
+    transform: rotate(-12deg);
+}
+
+.bottom-art .symbol-b {
+    left: 285px;
+    top: 12px;
+
+    transform: rotate(9deg);
+}
+
+.bottom-art .symbol-c {
+    right: 25px;
+    top: 83px;
+
+    font-size: 14px;
+
+    transform: rotate(-8deg);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 500px) {
+
+    .poster {
+        width: 100vw;
+    }
+
+    .top {
+        width: 100vw;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<main class="poster">
+
+
+<!-- =====================================================
+     TOP SECTION
+===================================================== -->
+
+<section class="top">
+
+
+    <!-- LEFT IMAGE -->
+
+    <div class="left-image">
+
+        <img
+            <img src="C:\Users\DanielHernandezCarva\Downloads\payin\image\1.png" alt="Paisaje">
+            alt="Paisaje"
+        >
+
+        <div class="marker"></div>
+
+        <div class="marker-number">
+            3
+        </div>
+
+    </div>
+
+
+    <!-- VERTICAL COMMUNICATION -->
+
+    <div class="vertical-column communication">
+
+        <div class="vertical-text">
+            COMMUNICATION
+        </div>
+
+    </div>
+
+
+    <!-- VERTICAL SPECIAL QUEST -->
+
+    <div class="vertical-column special">
+
+        <div class="vertical-text">
+            SPECIALxQUEST
+        </div>
+
+    </div>
+
+
+    <!-- IMAGE 1 -->
+
+    <div class="photo image-1">
+
+        <img
+            <img src="C:\Users\DanielHernandezCarva\Downloads\payin\image\5.jpg" alt="Paisaje">
+            alt="Paisaje"
+        >
+
+        <div class="marker"></div>
+
+        <div class="marker-number">
+            1
+        </div>
+
+    </div>
+
+
+    <!-- IMAGE 6 -->
+
+    <div class="photo image-6">
+
+        <img
+             <img src="C:\Users\DanielHernandezCarva\Downloads\payin\image\3.jpg" alt="Paisaje">
+            alt="Paisaje"
+        >
+
+        <div class="marker"></div>
+
+        <div class="marker-number">
+            6
+        </div>
+
+    </div>
+
+
+    <!-- COMMUNICATION GRID -->
+
+    <div class="communication-grid">
+
+        <div class="horizontal-line-1"></div>
+
+        <div class="horizontal-line-2"></div>
+
+    </div>
+
+
+    <!-- COMMUNICATION TEXT -->
+
+    <div class="communication-text">
+
+        <div class="communication-title">
+
+            道と調和して
+            <strong>✿✿✿✿✿✿✿✿✿</strong>
+
+        </div>
+
+
+        <div class="communication-sub">
+
+            你的悲傷是自己造成的。。。。。。
+
+        </div>
+
+
+        <div class="communication-small">
+
+            我永遠不會停止感到無聊
+
+        </div>
+
+    </div>
+
+
+    <!-- IMAGE 4 -->
+
+    <div class="photo image-4">
+
+        <img
+             <img src="C:\Users\DanielHernandezCarva\Downloads\payin\image\6.jpg" alt="Paisaje">
+            alt="Paisaje"
+        >
+
+        
+
+        
+
+    </div>
+
+
+    <!-- IMAGE 5 -->
+
+    <div class="photo image-5">
+
+        <img
+            <img src="C:\Users\DanielHernandezCarva\Downloads\payin\image\13.jpg" alt="Paisaje">
+            alt="Paisaje"
+        >
+
+        <div class="marker"></div>
+
+        <div class="marker-number">
+            5
+        </div>
+
+    </div>
+
+
+    <!-- BOTTOM GRID -->
+
+    <div class="bottom-grid"></div>
+
+
+    <!-- CUADRO DE TEXTO -->
+
+    <div class="bottom-writing">
+
+        <div class="bottom-writing-text">
+
+           𝓐𝓼 𝓪 𝔀𝓸𝓶𝓪𝓷, 𝓼𝓱𝓮 𝓲𝓰𝓷𝓲𝓽𝓮𝓼 𝓽𝓱𝓮 𝓯𝓲𝓻𝓮 𝔀𝓲𝓽𝓱𝓲𝓷 𝓶𝓮.
+
+
+        
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     ARTIST TALK
+===================================================== -->
+
+<section class="russian">
+
+
+    <!-- INFO -->
+
+<div class="info">
+    <strong>
+        JIM MORRISON / POEM
+    </strong>
+
+    <br>
+
+    ПЕРУ И ТЕНЕЙ.
+
+    <br>
+
+    ПРОБУДИСЬ И СТРЯХНИ СНЫ.
+
+    <br>
+
+    МОЯ ПРЕКРАСНАЯ ДЕВОЧКА.
+
+    <br>
+
+    ВЫБЕРИ ДЕНЬ И ЗНАК СВОЕГО ДНЯ.
+
+    <br>
+
+    МЫ СМЕЕМСЯ КАК БЕЗУМНЫЕ ДЕТИ.
+
+    <br>
+
+    В ТЕМНОТЕ НОЧИ.
+</div>
+
+
+    <!-- 18:00 -->
+
+    <div class="artist-time">
+        630
+    </div>
+
+
+    <!-- ARTIST TALK -->
+
+    <div class="artist" style="
+    position: absolute; 
+    top: 20px; 
+    left: 200px; 
+    z-index: 9999; 
+    font-size: 24px; 
+    line-height: 1.4;
+    color: #000;
+">
+    «𝕬𝖘 ­  ­  ­𝖆­  ­  ­  ­𝖜𝖔𝖒𝖆𝖓, <br>
+    𝖘𝖍𝖊­  ­  ­  𝖎𝖌𝖓𝖎𝖙𝖊𝖘 ­  ­  ­ 𝖙𝖍𝖊 ­  ­   <br>
+    𝖋𝖎𝖗𝖊 ­  ­  ­ 𝖜𝖎𝖙𝖍𝖎𝖓  ­  ­  ­𝖒𝖊.»
+</div>
+
+
+    <!-- FOTO REAL DE LA BOCA -->
+
+    <div class="big-mouth">
+
+        <img
+            <img src="C:\Users\DanielHernandezCarva\Downloads\payin\image\12.jpg" alt="Paisaje">
+            alt="Close up de labios"
+        >
+
+    </div>
+
+
+    <!-- 2010 -->
+
+    <div class="side-type">
+        2005
+    </div>
+
+
+    <!-- SPECIAL QUEST -->
+
+   
+
+
+    <!-- TEXTO PRINCIPAL -->
+
+    <div class="russian-main">
+
+        <div>
+           ЗЕРКАЛО НЕ ВИДИТ САМО СЕБЯ.
+        </div>
+
+        <div>
+           ВСЕ МЫ ИЩЕМ ВЫХОД.
+        </div>
+
+        <div>
+            МОЛЧАНИЕ ТОЖЕ ОТВЕТ.
+        </div>
+
+        <div>
+          ОЖИДАНИЯ УБИВАЮТ.
+        </div>
+
+    </div>
+
+
+    <!-- STICKER -->
+
+    <div class="sticker">
+
+```html
+<a href="https://open.spotify.com/playlist/35lWxnu6hWWgofPVQ1I1l5?si=oAXZH6suT56_w-xY18mx3g"
+   target="_blank"
+   style="
+      position: absolute;
+      bottom: 13px;
+      right: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 8px;
+      font-size: 8px;
+      color: #000;
+      text-decoration: none;
+      font-family: monospace;
+      letter-spacing: 1px;
+      background: #fff;
+      border: 1px solid #000;
+      white-space: nowrap;
+      z-index: 99999;
+      cursor: pointer;
+      box-sizing: border-box;
+   ">
+   ⏺︎⏺︎⏺︎⏺︎
+</a>
+```
+        
+
+    </div>
+
+
+    <!-- PARTY -->
+
+    <div class="party">
+
+        <span class="party-time">
+            33333
+        </span>
+
+       
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     BOTTOM ART
+===================================================== -->
+
+<section class="bottom-art">
+
+    <!-- TEXTOS CIRÍLICOS DECORATIVOS -->
+
+    <span class="cyrillic-1">
+        ИСКУССТВО / СВЯЗЬ / ФОРМА
+    </span>
+
+    <span class="cyrillic-2">
+        ХУДОЖНИКИ — ИДЕИ — ОБРАЗЫ
+    </span>
+
+    <span class="cyrillic-3">
+        ПРОСТРАНСТВО / 2010
+    </span>
+
+    <span class="cyrillic-4">
+        ДИЗАЙН И КОММУНИКАЦИЯ
+    </span>
+
+
+    <!-- LETRAS GRANDES -->
+
+    <span class="giant-letter letter-p">
+        П
+    </span>
+
+    <span class="giant-letter letter-r">
+        Р
+    </span>
+
+    <span class="giant-letter letter-o">
+        О
+    </span>
+
+    <span class="giant-letter letter-b">
+        Б
+    </span>
+
+    <span class="giant-letter letter-u">
+        У
+    </span>
+
+
+    <!-- LÍNEAS TIPO BOCETO -->
+
+    <span class="sketch-line-1"></span>
+
+    <span class="sketch-line-2"></span>
+
+    <span class="sketch-line-3"></span>
+
+
+    <!-- SÍMBOLOS -->
+
+    <span class="symbol symbol-a">
+        Я
+    </span>
+
+    <span class="symbol symbol-b">
+        Ж
+    </span>
+
+    <span class="symbol symbol-c">
+        Ф
+    </span>
+
+</section>
+
+
+</main>
+
+</body>
+
+</html>
