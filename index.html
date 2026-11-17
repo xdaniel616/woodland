@@ -1316,6 +1316,10 @@ body {
     width: min(340px, calc(100% - 32px));
     margin: auto;
     padding: 22px;
+    position: fixed;
+inset: 0;
+margin: auto;
+transform: none;
     border: 1px solid #111;
     border-radius: 0;
     background: #fff;
@@ -1897,7 +1901,6 @@ const sendButton = document.getElementById("sendMessage");
 // Abrir ventana
 openButton.addEventListener("click", () => {
     modal.showModal();
-    textarea.focus();
 });
 
 // Cerrar ventana
