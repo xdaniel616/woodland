@@ -1310,6 +1310,71 @@ body {
 }
 
 
+
+/* VENTANA DE MENSAJES */
+#messageModal {
+    width: min(340px, calc(100% - 32px));
+    margin: auto;
+    padding: 22px;
+    border: 1px solid #111;
+    border-radius: 0;
+    background: #fff;
+    color: #000;
+    font-family: monospace;
+}
+
+#messageModal::backdrop {
+    background: rgba(0, 0, 0, .55);
+}
+
+#messageModal h2 {
+    font-size: 15px;
+    font-weight: normal;
+    margin-bottom: 16px;
+}
+
+#messageModal textarea {
+    width: 100%;
+    height: 115px;
+    resize: vertical;
+    padding: 10px;
+    border: 1px solid #111;
+    border-radius: 0;
+    font-family: monospace;
+    font-size: 12px;
+    outline: none;
+}
+
+#messageModal .modal-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+}
+
+#messageModal button {
+    padding: 7px 14px;
+    border: 1px solid #111;
+    border-radius: 0;
+    background: #fff;
+    color: #000;
+    font-family: monospace;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+#messageModal button:hover {
+    background: #000;
+    color: #fff;
+}
+
+#messageStatus {
+    font-size: 10px;
+    margin-top: 10px;
+}
+
+
+
 </style>
 
 </head>
@@ -1605,7 +1670,7 @@ body {
         width: 115px;
         height: 125px;
         transform: rotate(50deg);
-    opacity: 0.2;
+        opacity: 0.2;
         object-fit: contain;
         right: 58px;
         bottom: -81px;
@@ -1614,32 +1679,33 @@ body {
     "
 >
 
-    <!-- BOTÓN  -->
-    <a href="https://open.spotify.com/playlist/35lWxnu6hWWgofPVQ1I1l5?si=oAXZH6suT56_w-xY18mx3g"
-       target="_blank"
-       rel="noopener noreferrer"
-       style="
-          position: absolute;
-          bottom: -28px;
-          right: 30px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 4px 8px;
-          font-size: 8px;
-          color: #000;
-          text-decoration: none;
-          font-family: monospace;
-          letter-spacing: 1px;
-          background: #fff;
-          border: 1px solid #000;
-          white-space: nowrap;
-          z-index: 99999;
-          cursor: pointer;
-          box-sizing: border-box;
-       ">
-       ⏺︎⏺︎⏺︎⏺︎
-    </a>
+
+<button
+    type="button"
+    id="openMessageModal"
+    style="
+        position: absolute;
+        bottom: -28px;
+        right: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 8px;
+        font-size: 8px;
+        color: #000;
+        text-decoration: none;
+        font-family: monospace;
+        letter-spacing: 1px;
+        background: #fff;
+        border: 1px solid #000;
+        white-space: nowrap;
+        z-index: 99999;
+        cursor: pointer;
+        box-sizing: border-box;
+    ">
+    ⏺︎⏺︎⏺︎⏺︎
+</button>
+
 
 </div>
 
@@ -1735,6 +1801,31 @@ body {
 
 </main>
 
+<dialog id="messageModal">
+    <form id="messageForm">
+        <h2>...</h2>
+
+        <textarea
+            id="visitorMessage"
+            maxlength="1000"
+
+            required
+        ></textarea>
+
+        <div class="modal-actions">
+            <button type="button" id="closeMessageModal">
+                CLOSE
+            </button>
+
+            <button type="submit" id="sendMessage">
+                SEND
+            </button>
+        </div>
+
+        <p id="messageStatus" aria-live="polite"></p>
+    </form>
+</dialog>
+
 <script>
 (function () {
     const poster = document.querySelector('.poster');
@@ -1754,6 +1845,108 @@ body {
     window.addEventListener('resize', adjustPoster);
     adjustPoster();
 })();
+</script>
+
+<script type="module">
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+} from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+import {
+    getAnalytics,
+    isSupported,
+    logEvent
+} from
+"https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyD1nXxNM5PPZS7GevoJUXTY73uo4VXJWng",
+    authDomain: "woodland-3792b.firebaseapp.com",
+    projectId: "woodland-3792b",
+    storageBucket: "woodland-3792b.firebasestorage.app",
+    messagingSenderId: "576799497865",
+    appId: "1:576799497865:web:6c1382e81c1a2604a13058",
+    measurementId: "G-3KCXLZ27S4"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Analytics
+if (await isSupported()) {
+    const analytics = getAnalytics(app);
+    logEvent(analytics, "page_view");
+}
+
+// Elementos
+const modal = document.getElementById("messageModal");
+const openButton = document.getElementById("openMessageModal");
+const closeButton = document.getElementById("closeMessageModal");
+const form = document.getElementById("messageForm");
+const textarea = document.getElementById("visitorMessage");
+const status = document.getElementById("messageStatus");
+const sendButton = document.getElementById("sendMessage");
+
+// Abrir ventana
+openButton.addEventListener("click", () => {
+    modal.showModal();
+    textarea.focus();
+});
+
+// Cerrar ventana
+closeButton.addEventListener("click", () => {
+    modal.close();
+});
+
+// Cerrar al pulsar fuera
+modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+        modal.close();
+    }
+});
+
+// Guardar mensaje
+form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const mensaje = textarea.value.trim();
+
+    if (!mensaje || mensaje.length > 1000) {
+        status.textContent = "Write a valid message.";
+        return;
+    }
+
+    sendButton.disabled = true;
+    status.textContent = "Sending...";
+
+    try {
+        await addDoc(collection(db, "mensajes"), {
+            mensaje: mensaje,
+            fecha: serverTimestamp()
+        });
+
+        status.textContent = "Message sent successfully.";
+        textarea.value = "";
+
+        setTimeout(() => {
+            modal.close();
+            status.textContent = "";
+        }, 1200);
+
+    } catch (error) {
+        console.error("Error:", error);
+        status.textContent = "Could not send the message.";
+    } finally {
+        sendButton.disabled = false;
+    }
+});
 </script>
 
 </body>
