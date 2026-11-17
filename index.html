@@ -1924,7 +1924,7 @@ form.addEventListener("submit", async (event) => {
     }
 
     sendButton.disabled = true;
-    status.textContent = "Sending...";
+    status.textContent = "...";
 
     try {
         await addDoc(collection(db, "mensajes"), {
@@ -1932,7 +1932,7 @@ form.addEventListener("submit", async (event) => {
             fecha: serverTimestamp()
         });
 
-        status.textContent = "sent :)";
+        status.textContent = "sent.";
         textarea.value = "";
 
         setTimeout(() => {
