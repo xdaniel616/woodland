@@ -5,12 +5,10 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="/woodland/image/lo.png?v=5" type="image/jpeg">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,200&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,100&display=swap" rel="stylesheet">
+<link rel="icon" href="/woodland/image/logox.png?v=5" type="image/png">
 <title>woodland</title>
 
-<script type="text/javascript" src="https://gc.kes.v2.scr.kaspersky-labs.com/7EA5E9BB-55E1-4C31-9C21-4943DDFED2E4/main.js?attr=G9cE4FB82jSLiu40_--J4iJGqQHhZA6pw32rfBvVBKJBB3T1977VIJwoVN8DE6MB6VaO_WMymj7ExBQvWvfvBQ" charset="UTF-8"></script><style>
+<style>
 * {
     box-sizing: border-box;
     margin: 0;
@@ -1292,7 +1290,7 @@ body {
         min-height: 100vh;
         margin: 0 auto;
         transform-origin: top left;
-        filter: blur(0.7px);
+        
     }
 
     .top {
@@ -1391,7 +1389,7 @@ transform: none;
 
     <div class="left-image">
 
-       <img src="./image/1.png" alt="Paisaje">
+       <img src="./image/1.png" alt="Paisaje" decoding="async">
 
         <div class="marker"></div>
 
@@ -1428,7 +1426,7 @@ transform: none;
 
     <div class="photo image-1">
 
-        <img src="./image/5.jpg" alt="Paisaje">
+        <img src="./image/5.jpg" alt="Paisaje" decoding="async">
 
         <div class="marker"></div>
 
@@ -1443,7 +1441,7 @@ transform: none;
 
     <div class="photo image-6">
 
-        <img src="./image/3.jpg" alt="Paisaje">
+        <img src="./image/3.jpg" alt="Paisaje" decoding="async">
     
 
         <div class="marker"></div>
@@ -1498,7 +1496,7 @@ transform: none;
 
     <div class="photo image-4">
 
-        <img src="./image/6.jpg" alt="Paisaje">
+        <img src="./image/6.jpg" alt="Paisaje" decoding="async">
 
 
     </div>
@@ -1508,7 +1506,7 @@ transform: none;
 
     <div class="photo image-5">
 
-        <img src="./image/13.jpg" alt="Paisaje">
+        <img src="./image/13.jpg" alt="Paisaje" loading="lazy" decoding="async">
 
         <div class="marker"></div>
 
@@ -1613,7 +1611,7 @@ transform: none;
 
     <div class="big-mouth">
 
-        <img src="./image/12.jpg" alt="Paisaje">
+        <img src="./image/12.jpg" alt="Paisaje" loading="lazy" decoding="async">
   
 
     </div>
@@ -1659,7 +1657,7 @@ transform: none;
     <div class="sticker">
 
     <!-- GIF DECORATIVO -->
-<img
+<img loading="lazy" decoding="async"
     src="./image/sticker.gif"
     alt=""
     aria-hidden="true"
@@ -1674,6 +1672,7 @@ transform: none;
         bottom: -81px;
         pointer-events: none;
         z-index: 99999;
+        
     "
 >
 
@@ -1857,12 +1856,6 @@ import {
 } from
 "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-import {
-    getAnalytics,
-    isSupported,
-    logEvent
-} from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyD1nXxNM5PPZS7GevoJUXTY73uo4VXJWng",
@@ -1877,11 +1870,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Analytics
-if (await isSupported()) {
-    const analytics = getAnalytics(app);
-    logEvent(analytics, "page_view");
-}
+
 
 // Elementos
 const modal = document.getElementById("messageModal");
