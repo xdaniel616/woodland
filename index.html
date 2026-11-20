@@ -8,7 +8,7 @@
 <link rel="icon" href="/woodland/image/lo.png?v=5" type="image/png">
 <title>woodland</title>
 
-<script type="text/javascript" src="https://gc.kes.v2.scr.kaspersky-labs.com/7EA5E9BB-55E1-4C31-9C21-4943DDFED2E4/main.js?attr=YNJye3jT1a5mBgRETvdvtQnhwhB730hPkso9fv2ragBzyOUeoS-fgjJl5xXMZ3jiMC1DAcvmuqcTmDFQAE9a0lEGnml-9U_cEi3zpvmKt_15BBATHwC7XgCij2sdR0gEL3Kr-wkULDf96YUUtgWj0UZKR0U8VkPB5rTGzVtpIotu1a7cPyW7sDFSShfrRoW3Y4L7MU9FTMMn7XJywG9WuIAYd8JklGZR_TtBjPqniNV3vZT27FSapPEsTMwpdtJWMeN0ocUkUOHjXfl3_Mf7zs71pP49edsr5JML7fBY-4YouXKnENioSk6yEnJd5bDeykc83Bn2jNgi9ic0YyHsPUSK8P84KAPEX8_x3jnqBR8" charset="UTF-8"></script><style>
+<style>
 * {
     box-sizing: border-box;
     margin: 0;
@@ -1845,34 +1845,7 @@ transform: none;
 </script>
 
 <script type="module">
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
 
-import {
-    getFirestore,
-    collection,
-    addDoc,
-    serverTimestamp
-} from
-"https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-
-const firebaseConfig = {
-    apiKey: "AIzaSyD1nXxNM5PPZS7GevoJUXTY73uo4VXJWng",
-    authDomain: "woodland-3792b.firebaseapp.com",
-    projectId: "woodland-3792b",
-    storageBucket: "woodland-3792b.firebasestorage.app",
-    messagingSenderId: "576799497865",
-    appId: "1:576799497865:web:6c1382e81c1a2604a13058",
-    measurementId: "G-3KCXLZ27S4"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-
-
-// Elementos
 const modal = document.getElementById("messageModal");
 const openButton = document.getElementById("openMessageModal");
 const closeButton = document.getElementById("closeMessageModal");
@@ -1881,24 +1854,56 @@ const textarea = document.getElementById("visitorMessage");
 const status = document.getElementById("messageStatus");
 const sendButton = document.getElementById("sendMessage");
 
-// Abrir ventana
+let db;
+let firebaseReady;
+
+async function initializeFirebase() {
+    if (!firebaseReady) {
+        firebaseReady = (async () => {
+            const [{ initializeApp }, {
+                getFirestore,
+                collection,
+                addDoc,
+                serverTimestamp
+            }] = await Promise.all([
+                import("https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js"),
+                import("https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js")
+            ]);
+
+            const firebaseConfig = {
+                apiKey: "AIzaSyD1nXxNM5PPZS7GevoJUXTY73uo4VXJWng",
+                authDomain: "woodland-3792b.firebaseapp.com",
+                projectId: "woodland-3792b",
+                storageBucket: "woodland-3792b.firebasestorage.app",
+                messagingSenderId: "576799497865",
+                appId: "1:576799497865:web:6c1382e81c1a2604a13058",
+                measurementId: "G-3KCXLZ27S4"
+            };
+
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+
+            return { collection, addDoc, serverTimestamp };
+        })();
+    }
+
+    return firebaseReady;
+}
+
 openButton.addEventListener("click", () => {
     modal.showModal();
 });
 
-// Cerrar ventana
 closeButton.addEventListener("click", () => {
     modal.close();
 });
 
-// Cerrar al pulsar fuera
 modal.addEventListener("click", (event) => {
     if (event.target === modal) {
         modal.close();
     }
 });
 
-// Guardar mensaje
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -1913,8 +1918,11 @@ form.addEventListener("submit", async (event) => {
     status.textContent = "...";
 
     try {
+        const { collection, addDoc, serverTimestamp } =
+            await initializeFirebase();
+
         await addDoc(collection(db, "mensajes"), {
-            mensaje: mensaje,
+            mensaje,
             fecha: serverTimestamp()
         });
 
@@ -1933,6 +1941,7 @@ form.addEventListener("submit", async (event) => {
         sendButton.disabled = false;
     }
 });
+
 </script>
 
 </body>
